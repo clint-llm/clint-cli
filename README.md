@@ -1,6 +1,6 @@
 # Clint CLI
 
-This is the CLI tools for the [Clint LLM project](https://github.com/clint-llm).
+This is the web UI for the [Clint LLM project](https://github.com/clint-llm/clint-llm.github.io).
 Check out the [live project](https://clint-llm.github.io).
 
 Clint started as a Python prototype, 
