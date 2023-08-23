@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "clint-cli"
+version = "0.1.1"
+description = ""
+authors = ["Garrin McGoldrick <garrin.mcgoldrick@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "clint" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = "^0.27.8"
+numpy = "^1.25.0"
+rich = "^13.4.2"
+pydantic = "^2.0.2"
+tiktoken = "^0.4.0"
+tqdm = "^4.65.0"
+jinja2 = "^3.1.2"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.4.1"
+black = {version = "^23.3.0", allow-prereleases = true}
+pytest = "^7.4.0"
+
+[tool.poetry.scripts]
+clint-build-statpearls = "clint.scripts.build_statpearls:main"
+clint-build-embeddings = "clint.scripts.build_embeddings:main"
+clint-build-db = "clint.scripts.build_db:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

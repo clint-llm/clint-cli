@@ -1,0 +1,3 @@
+- add differential diagnosis to candidates
+- decide to answer or diagnose
+- find clearer system for DB of clinical manual entries
