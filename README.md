@@ -32,6 +32,6 @@ poetry install
 poetry shell
 clint-build-statpearls data/statpearls_NBK430685 data/docs
 clint-build-embeddings data/docs/StatPearls.parts
-clint-build-db data/docs/StatPearls.parts/ data/db --skip_parts data/docs/StatPearls.parts
+clint-build-db data/docs/StatPearls.parts/ data/db v1 --skip_parts data/docs/StatPearls.parts
 ```
 

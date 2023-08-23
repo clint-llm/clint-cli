@@ -118,11 +118,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("path_parts", type=Path)
     parser.add_argument("path_db", type=Path)
+    parser.add_argument("version", type=str)
     parser.add_argument("--skip_parts", nargs="*", type=Path)
     args = parser.parse_args()
 
     path_db: Path = args.path_db
     path_db.mkdir(parents=True, exist_ok=True)
+    version: str = args.version
 
     skip_parts: Set[Path] = set(args.skip_parts)
 
@@ -235,26 +237,26 @@ def main() -> None:
         embeddings_array = numpy.vstack(embeddings)
         pca_mapping = build_pca_mapping(embeddings_array, 128)
         numpy.save(
-            str(path_db / "embeddings_pca_128_mapping.npy"),
+            str(path_db / f"embeddings_pca_128_mapping.{version}.npy"),
             pca_mapping.astype(numpy.float32),
         )
         numpy.save(
-            str(path_db / "embeddings_pca_128.npy"),
+            str(path_db / f"embeddings_pca_128.{version}.npy"),
             numpy.dot(embeddings_array, pca_mapping).astype(numpy.float32),
         )
-        with (path_db / "embeddings_hash.csv").open("w") as fio:
+        with (path_db / f"embeddings_hash.{version}.csv").open("w") as fio:
             for hash in embeddings_hash:
                 fio.write(f"{hash.hex()}\n")
 
-    with (path_db / "parents.csv").open("w") as fio:
+    with (path_db / f"parents.{version}.csv").open("w") as fio:
         for hash, parent in sorted(parents.items()):
             fio.write(f"{hash.hex()}\t{parent.hex()}\n")
 
-    with (path_db / "titles.csv").open("w") as fio:
+    with (path_db / f"titles.{version}.csv").open("w") as fio:
         for hash, title in sorted(titles.items()):
             fio.write("{}\t{}\n".format(hash.hex(), title.replace("\t", " ")))
 
-    with (path_db / "urls.csv").open("w") as fio:
+    with (path_db / f"urls.{version}.csv").open("w") as fio:
         for hash, url in sorted(urls.items()):
             fio.write("{}\t{}\n".format(hash.hex(), url.replace("\t", "%09")))
 
@@ -272,15 +274,15 @@ def main() -> None:
                 "{}\t{}\n".format(hash.hex(), license.replace("\t", " ")).encode("utf8")
             )
 
-    with (path_db / "is_condition.csv").open("w") as fio:
+    with (path_db / f"is_condition.{version}.csv").open("w") as fio:
         for hash in sorted(is_condition):
             fio.write(f"{hash.hex()}\n")
 
-    with (path_db / "is_introduction.csv").open("w") as fio:
+    with (path_db / f"is_introduction.{version}.csv").open("w") as fio:
         for hash in sorted(is_introduction):
             fio.write(f"{hash.hex()}\n")
 
-    with (path_db / "is_symptoms.csv").open("w") as fio:
+    with (path_db / f"is_symptoms.{version}.csv").open("w") as fio:
         for hash in sorted(is_symptoms):
             fio.write(f"{hash.hex()}\n")
 
